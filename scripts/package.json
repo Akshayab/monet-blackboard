@@ -1,0 +1,20 @@
+{
+  "name": "@monet/scripts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "e2e": "playwright test -c e2e/playwright.config.ts",
+    "e2e:api": "playwright test -c e2e/playwright.config.ts --project=api",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.10.2",
+    "@monet/board-protocol": "workspace:*",
+    "@playwright/test": "1.65.1",
+    "@types/node": "catalog:",
+    "drizzle-orm": "catalog:",
+    "tsx": "catalog:"
+  },
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,3 @@
+# A self-hosted whiteboard: boards are private, so nothing here should be indexed.
+User-agent: *
+Disallow: /

@@ -1,0 +1,26 @@
+{
+  "name": "monet-blackboard",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "packageManager": "pnpm@10.26.1",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter \"./apps/*\" run dev",
+    "build": "pnpm --filter \"./apps/*\" run build",
+    "start": "pnpm --filter @monet/server run start",
+    "typecheck": "tsc --build && pnpm --filter \"./apps/*\" --filter ./scripts run typecheck",
+    "db:generate": "pnpm --filter @monet/db run generate",
+    "test": "pnpm --filter @monet/server test",
+    "test:e2e": "pnpm --filter @monet/scripts run e2e",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.9.10",
+    "typescript": "~5.9.3"
+  }
+}

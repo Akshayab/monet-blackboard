@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--
+      Sealed runner for Monet Blackboard live embeds (polls, timers, calculators, prototypes). The board loads this page
+      in an <iframe sandbox="allow-scripts"> (opaque origin: no cookies, no access to the board page) and sends the
+      embed's HTML over postMessage, together with a private MessagePort that carries all further traffic. The port
+      stays with this document, so a page the embed navigates to never receives board state. This policy blocks
+      every network request; only inline code, inline styles and data: images/fonts run. It's a separate page (not
+      srcdoc) because srcdoc frames inherit the board page's CSP, which forbids inline scripts in production.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; font-src data:; media-src data:; form-action 'none'; base-uri 'none'"
+    />
+    <meta name="referrer" content="no-referrer" />
+    <title>Monet Blackboard live embed</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      (function () {
+        var loaded = false;
+        window.addEventListener('message', function (e) {
+          if (loaded || e.source !== window.parent) return;
+          var d = e.data;
+          if (!d || d.monet !== 'load' || typeof d.doc !== 'string' || !e.ports || !e.ports[0]) return;
+          loaded = true;
+          // Picked up (and removed) by the embed bridge; document.write keeps this window object.
+          Object.defineProperty(window, '__monetPort', { value: e.ports[0], configurable: true });
+          document.open();
+          document.write(d.doc);
+          document.close();
+        });
+        window.parent.postMessage({ monet: 'loader-ready' }, '*');
+      })();
+    </script>
+  </body>
+</html>

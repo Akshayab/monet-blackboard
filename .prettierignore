@@ -1,0 +1,9 @@
+pnpm-lock.yaml
+**/dist
+**/node_modules
+lib/db/migrations
+licenses
+LICENSE
+scripts/e2e/.output
+scripts/e2e/.report
+apps/web/public

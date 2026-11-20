@@ -1,0 +1,24 @@
+# Dependencies and build output
+node_modules
+dist
+*.tsbuildinfo
+.tsbuildinfo
+
+# Local settings and data
+.env
+.env.*
+!.env.example
+.data
+
+# Test output
+scripts/e2e/.output/
+scripts/e2e/.report/
+coverage
+
+# Editors and OS files
+.idea
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,209 @@
+/*
+ * Dark board shell: near-black #171717 canvas with a faint grid, our own top bar, zoom pill and
+ * bottom tool pill. Excalidraw stays on its light theme (its dark theme inverts colors with a filter, which would
+ * wreck saturated cards), so its default chrome is hidden here and the parts we keep (the properties panel,
+ * color pickers, context menu) get dark CSS variables.
+ */
+
+.monet-board {
+  background: var(--monet-canvas);
+}
+
+/* Excalidraw chrome replaced by ours: main menu button, shape toolbar, top-right slot, footer, hints. */
+.monet-canvas .main-menu-trigger,
+.monet-canvas .shapes-section,
+.monet-canvas .layer-ui__wrapper__top-right,
+.monet-canvas .layer-ui__wrapper__footer,
+.monet-canvas .HintViewer,
+.monet-canvas .App-bottom-bar,
+.monet-canvas .App-toolbar--mobile,
+.monet-canvas .disable-zen-mode {
+  display: none !important;
+}
+
+/* The grid sits above the static canvas and blends so it only shows on empty board. */
+.monet-canvas .monet-canvas-grid {
+  z-index: 1;
+}
+
+/* Dark variables for the Excalidraw UI we keep (light mode keeps Excalidraw's own light look). */
+html:not(.monet-light) .monet-canvas .excalidraw {
+  --island-bg-color: #1f1f1f;
+  --popup-bg-color: #1f1f1f;
+  --popup-secondary-bg-color: #262626;
+  --popup-text-color: #e5e5e5;
+  --popup-text-inverted-color: #171717;
+  --text-primary-color: #e5e5e5;
+  --color-on-surface: #e5e5e5;
+  --icon-fill-color: #d4d4d4;
+  --default-bg-color: #171717;
+  --input-bg-color: #262626;
+  --input-border-color: #333333;
+  --input-hover-bg-color: #2a2a2a;
+  --input-label-color: #d4d4d4;
+  --button-gray-1: #262626;
+  --button-gray-2: #2f2f2f;
+  --button-gray-3: #3a3a3a;
+  --button-hover-bg: #2a2a2a;
+  --button-bg: #262626;
+  --color-surface-high: #2a2a2a;
+  --color-surface-mid: #1f1f1f;
+  --color-surface-low: #262626;
+  --color-surface-lowest: #171717;
+  --color-surface-primary-container: #2a3550;
+  --color-on-primary-container: #7aa2f7;
+  --default-border-color: #333333;
+  --sidebar-bg-color: #1a1a1a;
+  --sidebar-border-color: #2a2a2a;
+  --overlay-bg-color: rgba(0, 0, 0, 0.55);
+  --keybinding-color: #9c9c9c;
+  --color-gray-10: #262626;
+  --color-gray-20: #2f2f2f;
+  --color-gray-30: #3a3a3a;
+  --color-gray-40: #5c5c5c;
+  --color-gray-50: #9c9c9c;
+  --color-gray-60: #a3a3a3;
+  --color-gray-70: #bdbdbd;
+  --color-gray-80: #d4d4d4;
+  --color-gray-85: #e5e5e5;
+  --color-gray-90: #ececec;
+  --color-gray-100: #f5f5f5;
+  --shadow-island: 0 0 0 1px #2a2a2a, 0 6px 24px rgba(0, 0, 0, 0.35);
+  --color-primary: #7aa2f7;
+  --color-primary-darker: #5f86e0;
+  --color-primary-darkest: #4d73cc;
+  --color-primary-light: #2a3550;
+  --color-primary-hover: #8fb3fa;
+}
+html:not(.monet-light) .monet-canvas .excalidraw .Island {
+  color: #e5e5e5;
+}
+
+/* Context menu: danger items and the hover highlight readable in both themes (Excalidraw's red is 3.9:1). */
+html:not(.monet-light) .monet-canvas .excalidraw .context-menu-item.dangerous .context-menu-item__label {
+  color: #ff8787;
+}
+html.monet-light .monet-canvas .excalidraw .context-menu {
+  --select-highlight-color: #1971c2;
+}
+html.monet-light .monet-canvas .excalidraw .context-menu-item.dangerous .context-menu-item__label {
+  color: #c92a2a;
+}
+html.monet-light .monet-canvas .excalidraw .context-menu-item:hover.dangerous {
+  background-color: #c92a2a;
+}
+html.monet-light .monet-canvas .excalidraw .context-menu-item:hover.dangerous .context-menu-item__label {
+  color: #ffffff;
+}
+.monet-canvas .excalidraw .context-menu-item .context-menu-item__shortcut {
+  opacity: 0.8;
+}
+
+/* Section (frame) titles: Excalidraw draws them #999999, which is 2.8:1 on the light canvas. */
+.monet-canvas [id*='-frame-name-'] {
+  color: var(--monet-frame-name) !important;
+}
+
+/* Thin blue outline around the board while the chat is open (split view). */
+.monet-canvas::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1.5px transparent;
+  transition: box-shadow 150ms ease;
+  z-index: 35;
+}
+html.monet-ai-chat-open .monet-canvas::after {
+  box-shadow: inset 0 0 0 1.5px #4d8ff7;
+}
+
+/* Top bar: restyle the share, export and presence pieces that other workstreams own. */
+.monet-topbar [data-testid='button-share'],
+.monet-topbar [data-testid='button-outputs-menu'] {
+  height: 32px !important;
+  border-radius: 8px !important;
+  border-color: transparent !important;
+  background: transparent !important;
+  color: var(--monet-text) !important;
+  box-shadow: none !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+.monet-topbar [data-testid='button-share']:hover,
+.monet-topbar [data-testid='button-outputs-menu']:hover {
+  background: var(--monet-hover) !important;
+  color: var(--monet-text-strong) !important;
+}
+.monet-topbar [data-testid='presence-avatars'] button {
+  border-color: var(--monet-surface) !important;
+}
+
+/* Dark dropdown menus and tooltips used by the shell. */
+.monet-dark-menu {
+  background: var(--monet-surface) !important;
+  border-color: var(--monet-border-2) !important;
+  color: var(--monet-text-strong) !important;
+  box-shadow: 0 12px 40px var(--monet-shadow) !important;
+}
+.monet-dark-menu [role='menuitem'] {
+  color: var(--monet-text-strong);
+}
+.monet-dark-menu [role='menuitem'][data-highlighted] {
+  background: var(--monet-hover) !important;
+  color: var(--monet-text-strong) !important;
+}
+.monet-dark-menu [role='separator'] {
+  background: var(--monet-border-2) !important;
+}
+.monet-dark-menu svg {
+  color: var(--monet-text-faint);
+}
+.monet-dark-tooltip {
+  background: var(--monet-hover) !important;
+  color: var(--monet-text-strong) !important;
+  border: 1px solid var(--monet-border-2);
+}
+
+/* Bottom dock: prompt bar above the tool pill. */
+.monet-bottom-dock {
+  z-index: 30;
+}
+
+/* Canvas-inputs side toolbar (embed / add file), dark to match. On phones the prompt bar's + menu covers it. */
+[data-testid='toolbar-inputs'] {
+  background: var(--monet-surface) !important;
+  border-color: var(--monet-border) !important;
+  box-shadow: 0 6px 24px var(--monet-shadow) !important;
+}
+[data-testid='toolbar-inputs'] button {
+  color: var(--monet-text-soft) !important;
+}
+[data-testid='toolbar-inputs'] button:hover {
+  background: var(--monet-hover) !important;
+  color: var(--monet-text-strong) !important;
+}
+[data-testid='toolbar-inputs-mobile'] {
+  display: none !important;
+}
+
+/* Presence "who's here" chip in the top bar. */
+.monet-topbar [data-testid='button-who-is-here'] {
+  background: var(--monet-surface-2) !important;
+  border-color: var(--monet-border-2) !important;
+  color: var(--monet-text) !important;
+  box-shadow: none !important;
+}
+
+/* Excalidraw's right-click menu renders under the bottom dock (z-index 30) and the Ask AI chip (portaled into
+   body); hide both while a context menu is open so its bottom items (Unlock, Delete) stay reachable. */
+.monet-canvas:has(.excalidraw .context-menu) .monet-bottom-dock,
+:root:has(.monet-canvas .excalidraw .context-menu) .monet-ai-overlays {
+  visibility: hidden;
+}
+
+/* See live-embed-chrome.tsx: no editable link box for live embeds. */
+.monet-canvas.monet-live-embed-selected .excalidraw-hyperlinkContainer {
+  display: none;
+}

@@ -1,0 +1,81 @@
+Monet Blackboard
+Copyright 2026 The Monet Blackboard authors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+It includes software and assets developed by third parties, listed below. Each keeps its own license.
+Packages installed from npm are listed in THIRD_PARTY_LICENSES.md.
+
+--------------------------------------------------------------------------------
+Excalidraw (the whiteboard canvas)
+--------------------------------------------------------------------------------
+
+Monet Blackboard is built on the @excalidraw/excalidraw package, used unmodified from npm.
+https://github.com/excalidraw/excalidraw
+
+MIT License
+
+Copyright (c) 2020 Excalidraw
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+The build rewrites one URL in Excalidraw's bundled code (its font fallback, from the esm.sh CDN to this
+server) so the canvas never contacts a third party. No other part of Excalidraw is changed.
+
+--------------------------------------------------------------------------------
+Fonts
+--------------------------------------------------------------------------------
+
+The web app serves these font files from its own origin. They are copied at build time from the
+@excalidraw/excalidraw and @fontsource-variable/inter packages. Full license texts are in licenses/fonts/.
+
+- Excalifont: Copyright (c) 2024 by Excalidraw. Designed by Ján Filípek / DizajnDesign, based on Virgil.
+  SIL Open Font License 1.1. licenses/fonts/Excalifont.txt
+- Virgil: Copyright (c) 2021 - Present, Ellinor Rapp, with Reserved Font Name Virgil.
+  SIL Open Font License 1.1. licenses/fonts/Virgil.txt
+- Nunito: Copyright 2014 The Nunito Project Authors. SIL Open Font License 1.1. licenses/fonts/Nunito.txt
+- Lilita One: Copyright (c) 2011 Juan Montoreano. SIL Open Font License 1.1. licenses/fonts/Lilita.txt
+- Assistant: Copyright 2020 The Assistant Project Authors. SIL Open Font License 1.1. licenses/fonts/Assistant.txt
+- Cascadia Code: Copyright (c) 2019 - Present, Microsoft Corporation, with Reserved Font Name Cascadia Code.
+  SIL Open Font License 1.1. licenses/fonts/Cascadia.txt
+- Liberation Sans: Copyright (c) 2012 Red Hat, Inc., with Reserved Font Name Liberation; digitized data
+  copyright (c) 2010 Google Corporation. SIL Open Font License 1.1. licenses/fonts/Liberation.txt
+- Xiaolai: Copyright 2020-2024 LXGW; Copyright 2014 Nozomi Seto. SIL Open Font License 1.1.
+  licenses/fonts/Xiaolai.txt
+- Comic Shanns: Copyright (c) 2018 Shannon Miwa and contributors. MIT License. licenses/fonts/ComicShanns.txt
+- Inter: Copyright 2016 The Inter Project Authors. SIL Open Font License 1.1. licenses/fonts/Inter.txt
+
+The fonts are distributed unmodified, as published in those packages (Excalidraw splits some of them into
+subsets by Unicode range).
+
+--------------------------------------------------------------------------------
+shadcn/ui
+--------------------------------------------------------------------------------
+
+The components in apps/web/src/components/ui/, and apps/web/src/hooks/use-toast.ts, apps/web/src/hooks/use-mobile.tsx
+and apps/web/src/lib/utils.ts, started from shadcn/ui and were adapted for this project.
+Copyright (c) 2023 shadcn. MIT License. licenses/shadcn-ui.txt
+https://github.com/shadcn-ui/ui
+
+--------------------------------------------------------------------------------
+Trademarks
+--------------------------------------------------------------------------------
+
+Excalidraw, Miro, Lucid, draw.io, Anthropic, Claude and OpenAI are trademarks of their respective owners.
+Monet Blackboard is an independent project and is not affiliated with or endorsed by any of them.

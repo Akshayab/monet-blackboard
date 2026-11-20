@@ -1,0 +1,54 @@
+packages:
+  - apps/*
+  - lib/*
+  - scripts
+
+# Only install package versions that have been public for at least a day (supply-chain defense).
+minimumReleaseAge: 1440
+
+catalog:
+  "@tailwindcss/vite": ^4.1.14
+  "@types/node": ^25.3.3
+  "@types/react": ^19.2.0
+  "@types/react-dom": ^19.2.0
+  "@vitejs/plugin-react": ^5.0.4
+  class-variance-authority: ^0.7.1
+  clsx: ^2.1.1
+  drizzle-orm: ^0.45.2
+  lucide-react: ^0.545.0
+  react: 19.1.0
+  react-dom: 19.1.0
+  tailwind-merge: ^3.3.1
+  tailwindcss: ^4.1.14
+  tsx: ^4.21.0
+  vite: ^7.3.2
+  wouter: ^3.3.5
+  zod: ^4.6.7
+
+autoInstallPeers: false
+
+onlyBuiltDependencies:
+  - esbuild
+
+overrides:
+  # Security advisories (pnpm audit, 2026-11-19): express 5.3.0 is the newest release, so its patched body-parser and
+  # qs come in through overrides; image-size is unused at runtime by pptxgenjs (its only user); nanoid and lodash-es
+  # come from @excalidraw/excalidraw.
+  "body-parser@>=2.0.0 <2.4.0": "^2.4.0"
+  "qs@>=6.7.0 <6.16.1": "^6.16.1"
+  "image-size@<2.0.3": "^2.0.4"
+  "nanoid@<3.3.8": "^3.3.8"
+  "nanoid@>=4.0.0 <5.1.16": "^5.1.16"
+  "lodash-es@<4.18.0": "^4.18.1"
+  # KaTeX (mermaid's math rendering, inside Excalidraw's Mermaid import): GHSA-238p-pmpm-9mq7.
+  "katex@<0.18.2": "0.18.10"
+  "proxy-addr@^2": "^2.0.8"
+  # @tailwindcss/typography pins an older postcss-selector-parser (build time only).
+  "postcss-selector-parser@<6.1.5": "^6.1.5"
+  "source-map-js@^1": "^1.2.2"
+  "fast-uri@^3": "^3.1.8"
+  "brace-expansion@^5": "^5.0.12"
+  # drizzle-kit uses esbuild internally on an older version that's vulnerable, this overrides it
+  "@esbuild-kit/esm-loader": "npm:tsx@^4.21.0"
+  esbuild: "0.28.2"
+  js-yaml: "4.3.2"

@@ -1,0 +1,75 @@
+/*
+ * Layout of Monet Blackboard's own board chrome (title bar) around Excalidraw's UI, for desktop, tablet, and phone.
+ * Excalidraw centers its shape toolbar on the canvas on desktop and runs it across the top on phones (it adds
+ * .excalidraw--mobile then), so the title moves out of its way. board-chrome.tsx sets --monet-canvas-w and
+ * data-monet-layout on .monet-canvas from the canvas' real width (narrower than the window while the AI side
+ * panel is open); the window-based rules below are only the fallback before that runs.
+ */
+
+/* Wide canvas: next to the main menu button, stopping before the centered toolbar (about 300px left of center). */
+.monet-titlebar {
+  top: 12px;
+  left: 64px;
+  max-width: max(160px, calc(50vw - 372px));
+}
+.monet-canvas[data-monet-layout] .monet-titlebar {
+  max-width: max(160px, calc(var(--monet-canvas-w) / 2 - 372px));
+}
+
+/* Narrow canvas (tablets, narrow desktops, or the AI panel open): sit just below the toolbar row. */
+.monet-canvas[data-monet-layout='narrow'] .monet-titlebar {
+  top: 64px;
+  left: 12px;
+  max-width: min(420px, calc(var(--monet-canvas-w) / 2 - 200px));
+}
+@media (max-width: 1099px) {
+  .monet-canvas:not([data-monet-layout]) .monet-titlebar {
+    top: 64px;
+    left: 12px;
+    max-width: min(420px, calc(50vw - 200px));
+  }
+}
+
+/* Phones (Excalidraw mobile UI): below the full-width toolbar, clear of the right-hand tool column. */
+.monet-canvas:has(.excalidraw--mobile) .monet-titlebar {
+  top: 72px;
+  left: 10px;
+  max-width: calc(100% - 84px);
+}
+
+/* Once it floats over board content (narrow canvas or phone), give the title a soft pill so it stays readable. */
+.monet-canvas[data-monet-layout='narrow'] .monet-titlebar,
+.monet-canvas:has(.excalidraw--mobile) .monet-titlebar {
+  border-radius: 0.6rem;
+  background: rgb(255 255 255 / 0.92);
+  box-shadow:
+    0 1px 3px rgb(0 0 0 / 0.08),
+    0 0 0 1px rgb(0 0 0 / 0.06);
+  padding: 2px 4px;
+}
+@media (max-width: 1099px) {
+  .monet-canvas:not([data-monet-layout]) .monet-titlebar {
+    border-radius: 0.6rem;
+    background: rgb(255 255 255 / 0.92);
+    box-shadow:
+      0 1px 3px rgb(0 0 0 / 0.08),
+      0 0 0 1px rgb(0 0 0 / 0.06);
+    padding: 2px 4px;
+  }
+}
+
+/* Dark theme (Excalidraw's theme toggle). */
+.monet-canvas:has(.excalidraw.theme--dark) .monet-titlebar {
+  color: #e9ecef;
+}
+.monet-canvas[data-monet-layout='narrow']:has(.excalidraw.theme--dark) .monet-titlebar,
+.monet-canvas:has(.excalidraw--mobile.theme--dark) .monet-titlebar {
+  background: rgb(35 35 41 / 0.92);
+}
+
+/* Bigger touch targets for the title on touch screens. */
+@media (pointer: coarse) {
+  .monet-titlebar button {
+    min-height: 36px;
+  }
+}
