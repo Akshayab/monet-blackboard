@@ -40,7 +40,7 @@ editable whiteboard content.
 Requirements: Docker Engine with the Compose plugin, Git, and an Anthropic or OpenAI API key.
 
 ```sh
-git clone https://github.com/replit/monet-blackboard
+git clone https://github.com/Akshayab/monet-blackboard
 cd monet-blackboard
 cp .env.example .env    # then set ANTHROPIC_API_KEY or OPENAI_API_KEY
 docker compose up -d --build
